@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= (dados && dados.perfil && dados.perfil.nome) ? dados.perfil.nome : 'Lucas Daniel' %> - Portfólio Tech</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { scroll-behavior: smooth; background: #0a0f23; color: #e0e0e0; }
+    nav { position: sticky; top: 0; z-index: 1000; background: #0d1321; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+    nav .navbar-brand { font-weight: bold; color: #00f0ff !important; text-decoration: none; font-size: 1.3rem; }
+    nav .navbar-nav { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; }
+    nav .nav-link { color: #a0a0a0 !important; text-decoration: none; transition: 0.3s; }
+    nav .nav-link:hover { color: #00f0ff !important; }
+    header { background: linear-gradient(135deg, #0d1321, #1e1e3f); color: #00f0ff; padding: 80px 20px; text-align: center; }
+    header h1 { font-size: 3rem; margin-bottom: 15px; letter-spacing: 1px; }
+    header p { font-size: 1.2rem; color: #a0f0ff; }
+    section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: 2rem; margin-bottom: 40px; text-align: center; color: #00f0ff; position: relative; }
+    .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: #00f0ff; margin: 10px auto 0; border-radius: 2px; }
+    .projetos-grid { display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; width: 100%; }
+    .col-projeto { flex: 1; min-width: 280px; max-width: 380px; }
+    .card-projetos { background: #1a1f3f; color: #e0e0e0; border: 2px solid rgba(0, 240, 255, 0.15); border-radius: 12px; padding: 30px; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; height: 100%; display: flex; flex-direction: column; }
+    .card-projetos:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,255,255,0.25); border-color: #00f0ff; }
+    .cert-box { background: #1a1f3f; border: 2px solid #00f0ff; border-radius: 12px; padding: 40px 20px; max-width: 600px; margin: 20px auto; text-align: center; box-shadow: 0 5px 15px rgba(0,255,255,0.1); }
+    .btn-custom { display: inline-block; background-color: #00f0ff; color: #0d1321 !important; border: none; border-radius: 8px; padding: 12px 30px; font-weight: bold; text-decoration: none; transition: 0.3s; cursor: pointer; }
+    .btn-custom:hover { background-color: #00d0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); transform: scale(1.02); }
+    .form-box { max-width: 600px; margin: 0 auto; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #00f0ff; }
+    input, textarea { width: 100%; background: #0d1321; border: 1px solid #00f0ff; color: #e0e0e0; border-radius: 8px; padding: 12px; }
+    input::placeholder, textarea::placeholder { color: #a0a0a0; }
+    footer { background-color: #0d1321; color: #00f0ff; text-align: center; padding: 30px 0; margin-top: 40px; }
+    .text-center { text-align: center; }
+    .w-100 { width: 100%; }
+</style>
+</head>
+<body>
+
+<nav>
+    <a class="navbar-brand" href="#"><%= (dados && dados.perfil) ? dados.perfil.nome : 'Lucas Daniel' %></a>
+    <ul class="navbar-nav">
+        <li><a class="nav-link" href="#sobre">Sobre</a></li>
+        <li><a class="nav-link" href="#cursos">Cursos</a></li>
+        <li><a class="nav-link" href="#certificados">Certificados</a></li>
+        <li><a class="nav-link" href="#contato">Contato</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1><%= (dados && dados.perfil) ? dados.perfil.nome : 'Lucas Daniel' %></h1>
+    <p><%= (dados && dados.perfil) ? dados.perfil.descricao : 'Estudante Técnico em Análise de Sistemas' %></p>
+</header>
+
+<section id="sobre">
+    <h2 class="section-title">Sobre Mim</h2>
+    <p class="text-center" style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        Sou <%= (dados && dados.perfil) ? dados.perfil.nome : 'Lucas Daniel' %>, estudante técnico em Análise de Sistemas no Colégio Kennedy.  
+        Tenho experiência em JavaScript, desenvolvimento web e banco de dados relacional.
+        Se precisar, entre em contato pelo email: <%= (dados && dados.perfil) ? dados.perfil.email : 'seu@email.com' %>.
+    </p>
+</section>
+
+<section id="cursos">
+    <h2 class="section-title">Meus Cursos (Banco de Dados)</h2>
+    <div class="projetos-grid">
+        <% if (dados && dados.cursos && dados.cursos.length > 0) { %>
+            <% dados.cursos.forEach(curso => { %>
+                <div class="col-projeto">
+                    <div class="card-projetos">
+                        <h5 style="color: #00f0ff; margin-bottom: 12px; font-size: 1.25rem;"><%= curso.nome %></h5>
+                        <p style="margin: 0; color: #b0b5c6; line-height: 1.5;">Carga horária total: <%= curso.horas %> horas de aprendizado técnico.</p>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center w-100">Nenhum curso carregado do banco de dados.</p>
+        <% } %>
+    </div>
+</section>
+
+<section id="certificados">
+    <h2 class="section-title">Certificados</h2>
+    <% if (dados && dados.certificados && dados.certificados.length > 0) { %>
+        <% dados.certificados.forEach(cert => { %>
+            <div class="cert-box">
+                <h4 style="color: #00f0ff; margin-bottom: 15px;"><%= cert.titulo %></h4>
+                <p style="margin-bottom: 20px; color: #b0b5c6;">Concluído com sucesso no ano de <%= cert.ano %>.</p>
+                <a href="https://cursos.alura.com.br/user/lucas-kuller/fullCertificate/af4b0d43b871c949689b4894cd60094b" target="_blank" class="btn-custom">Visualizar Plataforma</a>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p class="text-center">Nenhum certificado registrado no sistema.</p>
+    <% } %>
+</section>
+
+<section id="contato">
+    <h2 class="section-title">Contato</h2>
+    <div class="form-box">
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Seu nome">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
+            </div>
+            <button type="submit" class="btn-custom w-100">Enviar</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    &copy; 2026 <%= (dados && dados.perfil) ? dados.perfil.nome : 'Lucas Daniel' %> | Desenvolvido em Camadas
+</footer>
+
+</body>
+</html>
